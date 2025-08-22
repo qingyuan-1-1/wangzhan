@@ -135,17 +135,11 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 									</ol>
 									<h4>Icons</h4>
 								<ul class="icons">
-  <li>
-    <a href="https://weixin.qq.com" target="_blank" class="icon brands fa-weixin">
+  <li><a href="https://weixin.qq.com" target="_blank" class="icon brands fa-weixin">
       <span class="label">WeChat</span>
-    </a>
-  </li>
-  <li>
-    <a href="https://twitter.com/你的账号" target="_blank" class="icon brands fa-x-twitter">
+  <li><a href="https://twitter.com/你的账号" target="_blank" class="icon brands fa-x-twitter">
       <span class="label">Twitter</span>
-    </a>
-  </li>
-</ul>
+
 
 
 									<h4>Actions</h4>
@@ -328,21 +322,60 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 					</div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; 2025 田家一 设计与开发 </p>
-					</footer>
+<!-- 原有代码保持不动 -->
+  <!-- Footer -->
+  <footer id="footer">
+    <p class="copyright">&copy; 2025 田家一 设计与开发 </p>
+  </footer>
+</div>
 
-			</div>
+<!-- BG -->
+<div id="bg"></div>
 
-		<!-- BG -->
-			<div id="bg"></div>
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-	</body>
+<!-- 悬浮联系方式 -->
+<div id="contact-float">
+  <ul class="icons">
+    <li>
+      <a href="https://weixin.qq.com" target="_blank" class="icon brands fa-weixin">
+        <span class="label">WeChat</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://twitter.com/你的账号" target="_blank" class="icon brands fa-x-twitter">
+        <span class="label">Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
 
+<style>
+  #contact-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+  }
+  #contact-float .icons {
+    display: flex;
+    gap: 10px;
+    font-size: 1.5rem;
+  }
+  #contact-float .icons .icon {
+    color: #00ffe0;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  #contact-float .icons .icon:hover {
+    transform: scale(1.2);
+    color: #0077ff;
+  }
+</style>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
 </html>
+

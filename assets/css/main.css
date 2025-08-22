@@ -1726,3 +1726,30 @@ input, select, textarea {
     height: 16px;
   }
 }
+/* 让黑框里的按钮相对定位 */
+#main article {
+  position: relative;
+  padding-bottom: 4.5rem; /* 避免内容挡住按钮 */
+}
+
+/* Lesgo 按钮样式 */
+.lesgo-btn {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  padding: 0.6rem 1rem;
+  background: #0f1115;
+  color: #fff;
+  border-radius: 0.6rem;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.lesgo-btn:hover {
+  background: #151821;
+  transform: translateY(-2px);
+}
+

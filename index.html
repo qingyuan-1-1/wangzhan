@@ -333,19 +333,28 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 <div id="bg"></div>
 
 <!-- 悬浮联系方式 -->
-<div id="contact-float">
-  <ul class="icons">
-    <li>
-      <a href="javascript:void(0);" onclick="showContact('WeChat')" class="icon brands fa-weixin">
-        <span class="label">WeChat</span>
-      </a>
-    </li>
-    <li>
-      <a href="javascript:void(0);" onclick="showContact('Twitter')" class="icon brands fa-x-twitter">
-        <span class="label">Twitter</span>
-      </a>
-    </li>
-  </ul>
+<!-- 联系方式 FAB（右下角，替换 #contact-float） -->
+<div class="contact-fab" aria-label="联系方式">
+  <button class="fab-core" aria-label="打开联系方式"></button>
+
+  <!-- 旋转轨道（像太极一样绕圆心旋转） -->
+  <div class="orbit" style="--r: 56px; --speed: 10s;">
+    <!-- A 节点：WeChat（点击仍然调用你现有的弹窗） -->
+    <a class="node node--dark node--a"
+       href="javascript:void(0)"
+       onclick="showContact('WeChat')"
+       aria-label="WeChat" title="WeChat">
+      <i class="fa-brands fa-weixin" aria-hidden="true"></i>
+    </a>
+
+    <!-- B 节点：Twitter（同理弹窗） -->
+    <a class="node node--light node--b"
+       href="javascript:void(0)"
+       onclick="showContact('Twitter')"
+       aria-label="Twitter" title="Twitter">
+      <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+    </a>
+  </div>
 </div>
 
 <!-- 弹窗 -->
@@ -359,77 +368,94 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 <style>
   /* 悬浮按钮样式 */
-  #contact-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 999;
-    background: linear-gradient(145deg, #111, #1a1a1a, #000);
-    padding: 10px 12px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,255,255,0.3);
-  }
-  #contact-float .icons {
-    display: flex;
-    gap: 12px;
-    font-size: 1.6rem;
-  }
-  #contact-float .icons .icon {
-    color: #00ffe0;
-    transition: transform 0.2s ease, color 0.3s ease, text-shadow 0.3s ease;
-  }
-  #contact-float .icons .icon:hover {
-    transform: scale(1.2);
-    color: #76e0ff;
-    text-shadow: 0 0 8px #00ffe0;
-  }
-
-  /* 弹窗背景 */
-  #contact-popup {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.65);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  #contact-popup.hidden { display: none; }
-
-  /* 弹窗内容 */
-  .popup-content {
-    background: linear-gradient(145deg, #0a0a0a, #111, #1a1a1a);
-    padding: 20px 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,255,255,0.4);
-    text-align: center;
-    color: #e0e0e0;
-    max-width: 300px;
-    width: 90%;
-    position: relative;
-  }
-  .popup-content h3 {
-    margin-bottom: 10px;
-    color: #00ffe0;
-  }
-  .popup-content p {
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-  }
-  .close-btn {
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #aaa;
-  }
-  .close-btn:hover {
-    color: #fff;
-  }
+  
 </style>
 
-  
+ /* 圆形容器（右下角） */
+:root {
+  --fab-size: 72px;
+  --fab-bg: rgba(255,255,255,0.06);
+  --fab-stroke: rgba(255,255,255,0.14);
+  --fab-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  --node-size: 38px;
+  --node-shadow: 0 8px 18px rgba(0,0,0,0.35);
+  --speed: 10s;
+}
+
+.contact-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: var(--fab-size);
+  height: var(--fab-size);
+  border-radius: 50%;
+  background: var(--fab-bg);
+  border: 1px solid var(--fab-stroke);
+  box-shadow: var(--fab-shadow);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+}
+
+.fab-core {
+  width: calc(var(--fab-size) - 18px);
+  height: calc(var(--fab-size) - 18px);
+  border-radius: 50%;
+  border: 1px solid var(--fab-stroke);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* 旋转轨道：公转实现“太极式”效果 */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  animation: spin var(--speed) linear infinite;
+  will-change: transform;
+}
+
+.node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--node-size);
+  height: var(--node-size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  box-shadow: var(--node-shadow);
+  border: 1px solid var(--fab-stroke);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 18px; /* Font Awesome 图标大小 */
+}
+
+/* 对角分布（相反半径） */
+.node--a { transform: translate(-50%, -50%) translate(var(--r), 0); }
+.node--b { transform: translate(-50%, -50%) translate(calc(var(--r) * -1), 0); }
+
+/* 黑白对比（贴合你的黑科幻风） */
+.node--dark { background: #0a0a0a; color: #fff; }
+.node--light { background: #ffffff; color: #0a0a0a; }
+
+/* 交互细节 */
+.contact-fab:hover .orbit { animation-duration: calc(var(--speed) * 0.7); }
+.node:active { transform: translate(-50%, -50%) scale(0.96); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit { animation: none; }
+}
+ 
 <script>
   function showContact(type) {
     const popup = document.getElementById('contact-popup');

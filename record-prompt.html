@@ -3,15 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <title>记录｜Prompt 模块</title>
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap">
   <style>
-    body { font-family: sans-serif; padding: 40px; background: #f9f9f9; }
-    h1 { font-size: 28px; margin-bottom: 10px; }
-    .editor { width: 100%; height: 300px; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; resize: vertical; }
-    .status { margin-top: 10px; font-size: 14px; color: #666; }
-    .actions { margin-top: 20px; }
-    .btn { padding: 10px 20px; background: #000; color: #fff; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; }
-    .btn:hover { background: #333; }
+    body {
+      margin: 0;
+      padding: 40px;
+      background: radial-gradient(circle at top left, #0f0f0f, #000000);
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffe0;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 8px #00ffe0;
+    }
+
+    p {
+      font-size: 16px;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .editor {
+      width: 100%;
+      height: 300px;
+      padding: 12px;
+      font-size: 16px;
+      background: #111;
+      color: #00ffe0;
+      border: 2px solid #00ffe0;
+      border-radius: 10px;
+      resize: vertical;
+      box-shadow: 0 0 12px #00ffe0 inset;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .editor:focus {
+      box-shadow: 0 0 20px #00ffe0 inset;
+      outline: none;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    .actions {
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      background: linear-gradient(90deg, #00ffe0, #0077ff);
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 10px #00ffe0;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00ffe0;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px #00ffe0; }
+      50% { box-shadow: 0 0 20px #00ffe0; }
+      100% { box-shadow: 0 0 10px #00ffe0; }
+    }
+
+    .editor, .btn {
+      animation: pulse 3s infinite;
+    }
   </style>
 </head>
 <body>

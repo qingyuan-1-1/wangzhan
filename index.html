@@ -322,7 +322,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 					</div>
 
-<!-- 原有代码保持不动 -->
   <!-- Footer -->
   <footer id="footer">
     <p class="copyright">&copy; 2025 田家一 设计与开发 </p>
@@ -359,6 +358,15 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 <!-- 悬浮联系方式样式 -->
 <style>
+	.hidden { display: none; }
+	#contact-float {
+  animation: rotate 6s linear infinite;
+}
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 #contact-float {
   position: fixed;
   bottom: 20px;

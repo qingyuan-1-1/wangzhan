@@ -1140,9 +1140,12 @@ input, select, textarea {
 			-ms-transition-delay: 0.75s;
 			transition-delay: 0.75s;
 			background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../images/overlay.png");
-			background-size: auto, 256px 256px;
-			background-position: center, center;
-			background-repeat: no-repeat, repeat;
+			background-size: auto,
+ 256px 256px;
+			background-position: center,
+ center;
+			background-repeat: no-repeat,
+ repeat;
 			z-index: 2;
 		}
 
@@ -1656,3 +1659,23 @@ input, select, textarea {
 		body.is-preload #footer {
 			opacity: 0;
 		}
+.lesgo-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 999;
+}
+
+.lesgo-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}

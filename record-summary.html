@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>记录｜Summary 模块</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>/* 样式略，同下 */</style>
+</head>
+<body>
+  <h1>📌 Summary 模块记录页</h1>
+  <textarea id="editor" class="editor" placeholder="支持 Markdown 格式输入..."></textarea>
+  <div id="status" class="status">尚未保存</div>
+  <div class="actions">
+    <a href="index.html#Summary" class="btn">← 返回 Summary 模块</a>
+  </div>
+  <script>
+    const editor = document.getElementById('editor');
+    const status = document.getElementById('status');
+    const storageKey = 'record-summary';
+    const saved = localStorage.getItem(storageKey);
+    if (saved) { editor.value = saved; status.textContent = '✅ 已加载保存内容'; }
+    editor.addEventListener('input', () => {
+      localStorage.setItem(storageKey, editor.value);
+      status.textContent = '✅ 已自动保存';
+    });
+  </script>
+</body>
+</html>

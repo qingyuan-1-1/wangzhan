@@ -378,6 +378,50 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   box-shadow: 0 0 15px rgba(0,255,255,0.3);
 }
 /* 这里继续写你的旋转、动画样式 */
+	/* 弹窗可见性 */
+.hidden { display: none; }
+
+/* 全屏遮罩+居中 */
+#contact-popup {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* 要高于 #contact-float 的 z-index */
+}
+
+/* 弹窗主体 */
+#contact-popup .popup-content {
+  position: relative;
+  background: #111;
+  color: #fff;
+  padding: 20px 28px;
+  min-width: 240px;
+  max-width: 80vw;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(0,255,255,0.25);
+  text-align: center;
+}
+
+/* 关闭按钮 */
+#contact-popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #fff;
+  opacity: .8;
+}
+#contact-popup .close-btn:hover { opacity: 1; }
+
+/* 标题和内容 */
+#contact-title { margin: 0 0 8px; font-size: 18px; }
+#contact-info { margin: 0; font-size: 16px; word-break: break-all; }
+
 </style>
 
 <!-- 悬浮联系方式脚本 -->
@@ -385,20 +429,37 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 function showContact(type) {
   const popup = document.getElementById('contact-popup');
   const title = document.getElementById('contact-title');
-  const info = document.getElementById('contact-info');
+  const info  = document.getElementById('contact-info');
+
   if (type === 'WeChat') {
     title.textContent = '我的微信号';
-    info.textContent = 'tjy021006';
+    info.textContent  = 'tjy021006';
   } else if (type === 'Twitter') {
     title.textContent = '我的推特';
-    info.textContent = '@312679t';
+    info.textContent  = '@312679t';
+  } else {
+    title.textContent = '联系信息';
+    info.textContent  = '';
   }
+
   popup.classList.remove('hidden');
 }
+
 function hideContact() {
   document.getElementById('contact-popup').classList.add('hidden');
 }
+
+// 点击遮罩关闭
+document.addEventListener('DOMContentLoaded', () => {
+  const popup = document.getElementById('contact-popup');
+  if (popup) {
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) hideContact();
+    });
+  }
+});
 </script>
+
 
 <!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>

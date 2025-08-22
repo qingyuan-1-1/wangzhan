@@ -1,4 +1,45 @@
-<title>记录｜Prompt 模块</title>
-<h1>📌 Prompt 模块记录页</h1>
-<a href="index.html#Prompt" class="btn">← 返回 Prompt 模块</a>
-const storageKey = 'record-prompt';
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>记录｜Prompt 模块</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    body { font-family: sans-serif; padding: 40px; background: #f9f9f9; }
+    h1 { font-size: 28px; margin-bottom: 10px; }
+    .editor { width: 100%; height: 300px; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; resize: vertical; }
+    .status { margin-top: 10px; font-size: 14px; color: #666; }
+    .actions { margin-top: 20px; }
+    .btn { padding: 10px 20px; background: #000; color: #fff; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; }
+    .btn:hover { background: #333; }
+  </style>
+</head>
+<body>
+  <h1>📌 Prompt 模块记录页</h1>
+  <p>你可以在这里记录与 Prompt 模块相关的提示词、表达方式或灵感片段。</p>
+
+  <textarea id="editor" class="editor" placeholder="支持 Markdown 格式输入..."></textarea>
+  <div id="status" class="status">尚未保存</div>
+
+  <div class="actions">
+    <a href="index.html#Prompt" class="btn">← 返回 Prompt 模块</a>
+  </div>
+
+  <script>
+    const editor = document.getElementById('editor');
+    const status = document.getElementById('status');
+    const storageKey = 'record-prompt';
+
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      editor.value = saved;
+      status.textContent = '✅ 已加载保存内容';
+    }
+
+    editor.addEventListener('input', () => {
+      localStorage.setItem(storageKey, editor.value);
+      status.textContent = '✅ 已自动保存';
+    });
+  </script>
+</body>
+</html>

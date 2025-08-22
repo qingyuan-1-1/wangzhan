@@ -1,134 +1,88 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-  <title>Dimension by 田家一</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <link rel="stylesheet" href="assets/css/main.css" />
-  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-  <style>
-    /* ===== 微信二维码弹层样式 ===== */
-    #weixin-qr-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 3000;
-    }
-    .weixin-qr-box {
-      background: #111;
-      padding: 20px;
-      border-radius: 8px;
-      position: relative;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-    .qr-close {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      background: none;
-      border: none;
-      color: var(--fg, #eee);
-      font-size: 28px;
-      cursor: pointer;
-      line-height: 1;
-      padding: 0;
-    }
-    .qr-close:hover {
-      color: var(--accent, #7c5cff);
-    }
-    .weixin-qr-box img {
-      width: 200px;
-      height: auto;
-      display: block;
-    }
-  </style>
-</head>
-<body class="is-preload">
+  <head>
+    <title>Dimension by 田家一</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+  </head>
+  <body class="is-preload">
 
-  <!-- Wrapper -->
-  <div id="wrapper">
-    <!-- Header -->
-    <header id="header">
-      <div class="logo">
-        <span class="icon fa-gem"></span>
-      </div>
-      <div class="content">
-        <div class="inner">
-          <h1>Dimension</h1>
-          <p>既然相信自己未来会更好，那么当下就应该认为自己就是未来的那个你
-            <a href="https://html5up.net">未来你是年收入超百万</a>
-            现在就要把自己当成年薪百万以上的高净值人群看待自己<br/>
-            信念都是自己给的<a href="https://html5up.net/license">这种信念才是让我们坚持下去的动力</a> 与大家共勉
-          </p>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <div class="logo">
+          <span class="icon fa-gem"></span>
         </div>
+        <div class="content">
+          <div class="inner">
+            <h1>Dimension</h1>
+            <p>既然相信自己未来会更好，那么当下就应该认为自己就是未来的那个你</p>
+          </div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#summary">总结</a></li>
+            <li><a href="#dream">梦想</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#prompt">提示词</a></li>
+          </ul>
+        </nav>
+        <div class="corner-social">
+          <a href="#" aria-label="WeChat"><img src="assets/images/wechat-icon.svg" alt="WeChat"></a>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <div id="main">
+        <!-- 你的模块内容 -->
       </div>
-      <nav>
-        <ul>
-          <li><a href="#Summary">ai视频总结</a></li>
-          <li><a href="#Dream">ai幻想</a></li>
-          <li><a href="#about">个人总结</a></li>
-          <li><a href="#Prompt">提示词</a></li>
-        </ul>
-      </nav>
-    </header>
 
-    <!-- Main -->
-    <div id="main">
-      <!-- 保留你的所有文章模块 -->
-      <!-- ...（原有 Summary / Dream / About / Prompt / Elements 内容不变） -->
+      <!-- Footer -->
+      <footer id="footer">
+        <p>© 2025 田家一 | 设计与开发</p>
+      </footer>
+
     </div>
 
-    <!-- Footer -->
-    <footer id="footer">
-      <p class="copyright">&copy; 2025 田家一 设计与开发</p>
-    </footer>
-  </div>
-
-  <!-- 右上角导航 + 联系方式 -->
-  <nav class="corner-bar" aria-label="Main navigation and contact">
-    <div class="corner-social">
-      <a href="mailto:you@example.com" aria-label="Email"> ...SVG... </a>
-      <a href="https://github.com/yourname" target="_blank" aria-label="GitHub"> ...SVG... </a>
-      <a href="#" aria-label="WeChat" id="open-weixin"> ...SVG... </a>
+    <!-- 微信二维码弹层 -->
+    <div id="weixin-qr-overlay" style="display:none;">
+      <div class="weixin-qr-box">
+        <button class="qr-close" aria-label="关闭二维码">&times;</button>
+        <img src="assets/images/weixin-qr.png" alt="微信二维码">
+      </div>
     </div>
-  </nav>
 
-  <!-- 微信二维码遮罩弹层 -->
-  <div id="weixin-qr-overlay">
-    <div class="weixin-qr-box">
-      <button class="qr-close" aria-label="关闭二维码">&times;</button>
-      <img src="assets/images/weixin-qr.png" alt="微信二维码">
-    </div>
-  </div>
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
 
-  <!-- BG -->
-  <div id="bg"></div>
+    <!-- 微信二维码交互 -->
+    <script>
+      // 打开二维码
+      document.querySelector('.corner-social a[aria-label="WeChat"]').addEventListener('click', function(e){
+        e.preventDefault();
+        document.getElementById('weixin-qr-overlay').style.display = 'flex';
+      });
 
-  <!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/browser.min.js"></script>
-  <script src="assets/js/breakpoints.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script>
-    // 打开二维码
-    document.getElementById('open-weixin').addEventListener('click', function(e){
-      e.preventDefault();
-      document.getElementById('weixin-qr-overlay').style.display = 'flex';
-    });
-    // 点击关闭按钮
-    document.querySelector('.qr-close').addEventListener('click', function(){
-      document.getElementById('weixin-qr-overlay').style.display = 'none';
-    });
-    // 点击遮罩空白处关闭
-    document.getElementById('weixin-qr-overlay').addEventListener('click', function(e){
-      if(e.target.id === 'weixin-qr-overlay'){
-        this.style.display = 'none';
-      }
-    });
-  </script>
-</body>
+      // 点击关闭按钮
+      document.querySelector('.qr-close').addEventListener('click', function(){
+        document.getElementById('weixin-qr-overlay').style.display = 'none';
+      });
+
+      // 点击遮罩空白处关闭
+      document.getElementById('weixin-qr-overlay').addEventListener('click', function(e){
+        if(e.target.id === 'weixin-qr-overlay'){
+          this.style.display = 'none';
+        }
+      });
+    </script>
+
+  </body>
 </html>

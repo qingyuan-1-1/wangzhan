@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>记录｜Summary 模块</title>
+  <title>记录｜Dream 模块</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap">
   <style>
     body {margin:0;padding:40px;background:radial-gradient(circle at top left,#0f0f0f,#000);font-family:'Orbitron',sans-serif;color:#00ffe0;}
@@ -17,17 +17,17 @@
   </style>
 </head>
 <body>
-<title>记录｜Dream 模块</title>
-<h1>💭 Dream 模块记录页</h1>
-<p>记录你的创意脑洞和未来幻想。</p>
-const storageKey='record-dream';
-<a href="index.html#Dream" class="btn">← 返回 Dream 模块</a>
-
+  <h1>💭 Dream 模块记录页</h1>
+  <p>记录你的创意脑洞和未来幻想。</p>
+  <textarea id="editor" class="editor" placeholder="支持 Markdown 格式输入..."></textarea>
+  <div id="status" class="status">尚未保存</div>
+  <div class="actions">
+    <a href="index.html#Dream" class="btn">← 返回 Dream 模块</a>
   </div>
   <script>
     const editor=document.getElementById('editor');
     const status=document.getElementById('status');
-    const storageKey='record-summary';
+    const storageKey='record-dream';
     const saved=localStorage.getItem(storageKey);
     if(saved){editor.value=saved;status.textContent='✅ 已加载保存内容';}
     editor.addEventListener('input',()=>{localStorage.setItem(storageKey,editor.value);status.textContent='✅ 已自动保存';});

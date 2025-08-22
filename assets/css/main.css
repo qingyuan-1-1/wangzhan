@@ -1753,3 +1753,12 @@ input, select, textarea {
   transform: translateY(-2px);
 }
 
+.icons .icon {
+  color: #00ffe0;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.icons .icon:hover {
+  color: #0077ff;
+  transform: scale(1.2);
+}
+

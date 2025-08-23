@@ -27,7 +27,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <div class="content">
 <div class="inner">
 <h1>Dimension</h1>
-<p>既然相信自己未来会更好，那么当下就应该认为自己就是未来的那个你 未来你是年收入超百万 现在就要把自己当成年薪百万以上的高净值人群看待自己
+<p>既然相信自己未来会更好，那么当下就应该认为自己就是未来的那个你 未来你是年收入超百万 现在就要把自己当成年薪百万以上的高净值人群看待自[...]
 信念都是自己给的 这种信念才是让我们坚持下去的动力
 与大家共勉！</p>
 </div>
@@ -127,8 +127,8 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 <h4>Ordered</h4>
 <ol>
-<li>Dolor pulvinar etiam.</li>
-<li>Etiam vel felis viverra.</li>
+<li>Dolor pulvinar etiam。</li>
+<li>Etiam vel felis viverra。</li>
 <li>Felis enim feugiat。</li>
 <li>Dolor pulvinar etiam。</li>
 <li>Etiam vel felis lorem。</li>
@@ -236,12 +236,12 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 </tr>
 <tr>
 <td>Item Four</td>
-<td>Vitae integer tempus condimentum.</td>
+<td>Vitae integer tempus condimentum。</td>
 <td>19.99</td>
 </tr>
 <tr>
 <td>Item Five</td>
-<td>Ante turpis integer aliquet porttitor.</td>
+<td>Ante turpis integer aliquet porttitor。</td>
 <td>29.99</td>
 </tr>
 </tbody>
@@ -349,7 +349,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
     <!-- A 节点：WeChat（点击仍然调用你现有的弹窗） -->
     <a class="node node--dark node--a"
        href="javascript:void(0)"
-       onclick="showContact('WeChat');return false"
+       onclick="return showContact('WeChat')"
        aria-label="WeChat" title="WeChat">
       <i class="fa-brands fa-weixin" aria-hidden="true"></i>
     </a>
@@ -357,7 +357,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
     <!-- B 节点：Twitter（同理弹窗） -->
     <a class="node node--light node--b"
        href="javascript:void(0)"
-       onclick="showContact('Twitter')return false"
+       onclick="return showContact('Twitter')"
        aria-label="Twitter" title="Twitter">
       <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
     </a>
@@ -402,6 +402,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   display: grid;
   place-items: center;
   overflow: visible;
+  pointer-events: auto;
 }
 
 .fab-core {
@@ -411,6 +412,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   border: 1px solid var(--fab-stroke);
   background: transparent;
   cursor: pointer;
+  z-index: 0;
 }
 
 /* 旋转轨道：公转实现“太极式”效果 */
@@ -423,6 +425,13 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   transform-origin: 0 0;
   animation: spin var(--speed) linear infinite;
   will-change: transform;
+  /* 只让节点响应点击，轨道不拦截点击 */
+  pointer-events: none;
+}
+
+/* 悬停暂停旋转，方便点击（桌面端） */
+.contact-fab:hover .orbit {
+  animation-play-state: paused;
 }
 
 .node {
@@ -440,6 +449,8 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   font-size: 18px; /* Font Awesome 图标大小 */
+  pointer-events: auto;
+  z-index: 1;
 }
 
 /* 对角分布（相反半径） */
@@ -451,9 +462,6 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 .node--light { background: #ffffff; color: #0a0a0a; }
 
 /* 交互细节 */
-.contact-fab:hover .orbit {
-  animation-duration: calc(var(--speed) * 0.7);
-}
 .node:active {
   transform: translate(-50%, -50%) scale(0.96);
 }
@@ -463,16 +471,13 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 @media (prefers-reduced-motion: reduce) {
   .orbit { animation: none; }
 }
-  .node--a:active {
+/* 矫正 active 缩放时的位置（覆盖通用 :active） */
+.node--a:active {
   transform: translate(-50%, -50%) translate(var(--r), 0) scale(0.96);
 }
 .node--b:active {
   transform: translate(-50%, -50%) translate(calc(var(--r) * -1), 0) scale(0.96);
 }
-
-/* 点击命中优化：只屏蔽轨道本身，节点可点击 */
-.orbit { pointer-events: auto; }
-.node { pointer-events: auto; }
 
 /* 弹窗显示控制 */
 #contact-popup.hidden {
@@ -486,7 +491,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   color: #fff;
   padding: 16px 24px;
   border-radius: 12px;
-  z-index: 10001; /* 抬高一层，确保在最上 */
+  z-index: 10002; /* 比节点更高，确保在最上 */
   max-width: 240px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.5);
   backdrop-filter: blur(6px);
@@ -519,11 +524,33 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
       title.textContent = '我的推特';
       info.textContent = '@312679t';
     }
+    // 交互时暂停旋转，避免“移动目标”带来的误触
+    const orbit = document.querySelector('.orbit');
+    if (orbit) orbit.style.animationPlayState = 'paused';
+
     popup.classList.remove('hidden');
+    return false; // 阻止默认行为
   }
   function hideContact() {
     document.getElementById('contact-popup').classList.add('hidden');
+    // 弹窗关闭后允许恢复旋转
+    const orbit = document.querySelector('.orbit');
+    if (orbit) orbit.style.animationPlayState = '';
   }
+
+  // 触控/鼠标交互时也暂停旋转，提升命中率（移动端没有 hover）
+  (function () {
+    const orbit = document.querySelector('.orbit');
+    const fab = document.querySelector('.contact-fab');
+    if (!orbit || !fab) return;
+
+    const pause = () => { orbit.style.animationPlayState = 'paused'; };
+    const resume = () => { orbit.style.animationPlayState = ''; };
+
+    fab.addEventListener('pointerenter', pause);
+    fab.addEventListener('pointerdown', pause);
+    fab.addEventListener('pointerleave', resume);
+  })();
 </script>
 
 

@@ -129,11 +129,12 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 <ol>
 <li>Dolor pulvinar etiam.</li>
 <li>Etiam vel felis viverra.</li>
-<li>Felis enim feugiat.</li>
-<li>Dolor pulvinar etiam.</li>
-<li>Etiam vel felis lorem.</li>
-<li>Felis enim et feugiat.</li>
+<li>Felis enim feugiat。</li>
+<li>Dolor pulvinar etiam。</li>
+<li>Etiam vel felis lorem。</li>
+<li>Felis enim et feugiat。</li>
 </ol>
+
 <h4>Icons</h4>
 <ul class="icons">
   <li>
@@ -194,7 +195,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 </tr>
 <tr>
 <td>Item Five</td>
-<td>Ante turpis integer aliquet porttitor.</td>
+<td>Ante turpis integer aliquet porttitor。</td>
 <td>29.99</td>
 </tr>
 </tbody>
@@ -340,7 +341,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 <!-- 悬浮联系方式 -->
 <!-- 联系方式 FAB（右下角，替换 #contact-float） -->
-<div class="contact-fab" aria-label="联系方式">
+<div class="contact-fab" aria-label="联系方式" style="z-index:10010;">
   <button class="fab-core" aria-label="打开联系方式"></button>
 
   <!-- 旋转轨道（像太极一样绕圆心旋转） -->
@@ -364,7 +365,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 </div>
 
 <!-- 弹窗 -->
-<div id="contact-popup" class="hidden">
+<div id="contact-popup" class="hidden" style="z-index:10010;">
   <div class="popup-content">
     <span class="close-btn" onclick="hideContact()">&times;</span>
     <h3 id="contact-title"></h3>
@@ -463,7 +464,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   .orbit { animation: none; }
 }
 
-/* 点击命中优化 */
+/* 点击命中优化：只屏蔽轨道本身，节点可点击 */
 .orbit { pointer-events: none; }
 .node { pointer-events: auto; }
 

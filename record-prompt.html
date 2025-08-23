@@ -85,20 +85,20 @@
   </style>
 </head>
 <body>
-  <h1>📌 Prompt 模块记录页</h1>
-  <p>你可以在这里记录与 Prompt 模块相关的提示词、表达方式或灵感片段。</p>
+  <h1>📌 About 模块记录页</h1>
+  <p>你可以在这里记录与 Promt 模块相关的内容结构、表达方式或提示词。</p>
 
   <textarea id="editor" class="editor" placeholder="输入......"></textarea>
   <div id="status" class="status">尚未保存</div>
 
   <div class="actions">
-    <a href="index.html#Prompt" class="btn">← 返回 Prompt 模块</a>
+    <a href="index.html#about" class="btn">← 返回 About 模块</a>
   </div>
 
   <script>
     const editor = document.getElementById('editor');
     const status = document.getElementById('status');
-    const storageKey = 'record-prompt';
+    const storageKey = 'record-about';
 
     const saved = localStorage.getItem(storageKey);
     if (saved) {
@@ -113,4 +113,3 @@
   </script>
 </body>
 </html>
-

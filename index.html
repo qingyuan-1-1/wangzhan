@@ -349,7 +349,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
     <!-- A 节点：WeChat（点击仍然调用你现有的弹窗） -->
     <a class="node node--dark node--a"
        href="javascript:void(0)"
-       onclick="showContact('WeChat')"
+       onclick="showContact('WeChat');return false"
        aria-label="WeChat" title="WeChat">
       <i class="fa-brands fa-weixin" aria-hidden="true"></i>
     </a>
@@ -357,7 +357,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
     <!-- B 节点：Twitter（同理弹窗） -->
     <a class="node node--light node--b"
        href="javascript:void(0)"
-       onclick="showContact('Twitter')"
+       onclick="showContact('Twitter')return false"
        aria-label="Twitter" title="Twitter">
       <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
     </a>
@@ -381,7 +381,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
   --fab-bg: rgba(255,255,255,0.06);
   --fab-stroke: rgba(255,255,255,0.14);
   --fab-shadow: 0 8px 24px rgba(0,0,0,0.35);
-  --node-size: 38px;
+  --node-size: 48px;
   --node-shadow: 0 8px 18px rgba(0,0,0,0.35);
   --speed: 10s;
 }
@@ -463,9 +463,15 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 @media (prefers-reduced-motion: reduce) {
   .orbit { animation: none; }
 }
+  .node--a:active {
+  transform: translate(-50%, -50%) translate(var(--r), 0) scale(0.96);
+}
+.node--b:active {
+  transform: translate(-50%, -50%) translate(calc(var(--r) * -1), 0) scale(0.96);
+}
 
 /* 点击命中优化：只屏蔽轨道本身，节点可点击 */
-.orbit { pointer-events: none; }
+.orbit { pointer-events: auto; }
 .node { pointer-events: auto; }
 
 /* 弹窗显示控制 */

@@ -87,7 +87,7 @@
       const content = editor.value.trim();
       if (!content) return alert("内容为空，无法提交");
       const payload = { module: moduleName, content, timestamp: new Date().toISOString() };
-      fetch("https://script.google.com/macros/s/AKfycbzeEWMlctsOmwQJPbQeQSgA-e7ZYVGPkGKRFA5xKGGmWtbD9BveRvNn5DOgL7V08Cg/exec", {
+      fetch(https://script.google.com/macros/s/AKfycbylk0fYmF_9Tw40O7KPFi1PGX1zqyu5ANUKe4_Jg0Er9XQLo65p35y6p_uGoWD5G5R9/exec{
         method: "POST",
         body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" }
@@ -105,3 +105,4 @@
   </script>
 </body>
 </html>
+

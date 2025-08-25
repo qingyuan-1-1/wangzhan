@@ -5,116 +5,73 @@
   <title>记录｜Prompt 模块</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap">
   <style>
-   .nav-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-  gap: 10px;
-}
-.nav-btn {
-  padding: 12px 24px;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(255,110,196,0.6);
-}
-.nav-btn.left {
-  background: linear-gradient(90deg, #ff6ec4, #7873f5);
-  color: #000;
-}
-.nav-btn.right {
-  background: linear-gradient(90deg, #7873f5, #ff6ec4);
-  color: #000;
-}
-.nav-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255,110,196,0.9);
-}
-
     body {
-      margin: 0;
-      padding: 40px;
+      margin: 0; padding: 40px;
       background: radial-gradient(circle at bottom left, #1f1c2c, #928dab);
-      font-family: 'Orbitron', sans-serif;
-      color: #ffffff;
-      overflow-x: hidden;
+      font-family: 'Orbitron', sans-serif; color: #ffffff;
+      overflow-x: hidden; position: relative;
     }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      text-shadow: 0 0 8px #ff6ec4;
-    }
-    p {
-      font-size: 16px;
-      color: #ddd;
-      margin-bottom: 20px;
-    }
+    h1 { font-size: 28px; margin-bottom: 10px; text-shadow: 0 0 8px #ff6ec4; }
+    p { font-size: 16px; color: #ddd; margin-bottom: 20px; }
     .editor {
-      width: 100%;
-      height: 300px;
-      padding: 12px;
-      font-size: 16px;
-      background: #2c2c2c;
-      color: #ff6ec4;
-      border: 2px solid #ff6ec4;
-      border-radius: 10px;
-      resize: vertical;
-      box-shadow: 0 0 12px #ff6ec4 inset;
+      width: 100%; height: 300px; padding: 12px;
+      font-size: 16px; background: #2c2c2c; color: #ff6ec4;
+      border: 2px solid #ff6ec4; border-radius: 10px;
+      resize: vertical; box-shadow: 0 0 12px #ff6ec4 inset;
       transition: box-shadow 0.3s ease;
     }
-    .editor:focus {
-      box-shadow: 0 0 20px #ff6ec4 inset;
-      outline: none;
-    }
-    .status {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #aaa;
-    }
-    .actions {
-      margin-top: 30px;
-    }
+    .editor:focus { box-shadow: 0 0 20px #ff6ec4 inset; outline: none; }
+    .status { margin-top: 10px; font-size: 14px; color: #aaa; }
+    .actions { margin-top: 30px; display: flex; justify-content: space-between; align-items: center; }
     .btn {
       padding: 12px 24px;
       background: linear-gradient(90deg, #ff6ec4, #7873f5);
-      color: #000;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
+      color: #000; font-weight: bold; border: none; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
       box-shadow: 0 0 10px #ff6ec4;
       transition: transform 0.2s ease, box-shadow 0.3s ease;
+      animation: pulse 3s infinite;
     }
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #ff6ec4;
+    .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px #ff6ec4; }
+    .nav-btn {
+      padding: 12px 24px; font-weight: bold; text-decoration: none;
+      border-radius: 8px; transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(255,110,196,0.6);
     }
+    .nav-btn.right { background: linear-gradient(90deg, #7873f5, #ff6ec4); color: #000; }
+    .nav-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,110,196,0.9); }
     @keyframes pulse {
       0% { box-shadow: 0 0 10px #ff6ec4; }
       50% { box-shadow: 0 0 20px #ff6ec4; }
       100% { box-shadow: 0 0 10px #ff6ec4; }
     }
-    .editor, .btn {
-      animation: pulse 3s infinite;
+    /* 右上角 × 按钮 */
+    .close-btn {
+      position: absolute; top: 15px; right: 20px;
+      font-size: 24px; color: #ff6ec4; text-decoration: none;
+      font-weight: bold; cursor: pointer;
+      transition: transform 0.2s, color 0.3s;
     }
+    .close-btn:hover { color: #ff4d4d; transform: scale(1.2); }
   </style>
 </head>
 <body>
+  <a href="index.html" class="close-btn">×</a>
+
   <h1>🧠 Prompt 模块记录页</h1>
   <p>记录你的提示词设计、表达方式、实验结果与优化思路。</p>
+
   <textarea id="editor" class="editor" placeholder="输入提示词、实验记录或优化思路......"></textarea>
   <div id="status" class="status">尚未保存</div>
+
   <div class="actions">
-    <a href="index.html#prompt" class="btn">← 返回 主页 </a>
     <button onclick="submitToCloud()" class="btn">☁️ 提交到云端</button>
+    <a href="record-summary.html" class="nav-btn right">→ 回到 Summary 模块</a>
   </div>
+
   <script>
     const editor = document.getElementById('editor');
     const status = document.getElementById('status');
-
-    // 自动识别模块名
     const moduleName = location.pathname.match(/record-(.+?)\.html/)?.[1] || 'prompt';
     const storageKey = `record-${moduleName}`;
     const saved = localStorage.getItem(storageKey);
@@ -122,22 +79,14 @@
       editor.value = saved;
       status.textContent = '✅ 已加载保存内容';
     }
-
     editor.addEventListener('input', () => {
       localStorage.setItem(storageKey, editor.value);
       status.textContent = '✅ 已自动保存';
     });
-
     function submitToCloud() {
       const content = editor.value.trim();
       if (!content) return alert("内容为空，无法提交");
-
-      const payload = {
-        module: moduleName,
-        content,
-        timestamp: new Date().toISOString()
-      };
-
+      const payload = { module: moduleName, content, timestamp: new Date().toISOString() };
       fetch("https://script.google.com/macros/s/AKfycbzeEWMlctsOmwQJPbQeQSgA-e7ZYVGPkGKRFA5xKGGmWtbD9BveRvNn5DOgL7V08Cg/exec", {
         method: "POST",
         body: JSON.stringify(payload),
@@ -146,7 +95,7 @@
       .then(res => res.text())
       .then(msg => {
         status.textContent = "✅ 已提交到云端：" + msg;
-        localStorage.removeItem(storageKey); // 可选：清除草稿
+        localStorage.removeItem(storageKey);
       })
       .catch(err => {
         console.error(err);
@@ -156,6 +105,3 @@
   </script>
 </body>
 </html>
-
-
-

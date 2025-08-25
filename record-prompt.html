@@ -5,6 +5,33 @@
   <title>记录｜Prompt 模块</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap">
   <style>
+   .nav-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 10px;
+}
+.nav-btn {
+  padding: 12px 24px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255,110,196,0.6);
+}
+.nav-btn.left {
+  background: linear-gradient(90deg, #ff6ec4, #7873f5);
+  color: #000;
+}
+.nav-btn.right {
+  background: linear-gradient(90deg, #7873f5, #ff6ec4);
+  color: #000;
+}
+.nav-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,110,196,0.9);
+}
+
     body {
       margin: 0;
       padding: 40px;
@@ -127,5 +154,11 @@
       });
     }
   </script>
+<div class="nav-actions">
+  <a href="record-dream.html" class="nav-btn left">← 返回 Dream 模块</a>
+  <a href="record-about.html" class="nav-btn right">→ 前往 About 模块</a>
+</div>
+
 </body>
 </html>
+

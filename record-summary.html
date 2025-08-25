@@ -12,6 +12,7 @@
     .editor:focus {box-shadow:0 0 20px #00ffe0 inset;outline:none;}
     .status {margin-top:10px;font-size:14px;color:#888;}
     .actions {margin-top:30px;}
+    <button onclick="submitToCloud()" class="btn">☁️ 提交到云端</button>
     .btn {padding:12px 24px;background:linear-gradient(90deg,#00ffe0,#0077ff);color:#000;font-weight:bold;border:none;border-radius:8px;text-decoration:none;box-shadow:0 0 10px #00ffe0;transition:transform .2s,box-shadow .3s;}
     .btn:hover {transform:scale(1.05);box-shadow:0 0 20px #00ffe0;}
   </style>
@@ -24,7 +25,6 @@
   <div class="actions">
     <a href="index.html#Summary" class="btn">← 返回 Summary 模块</a>
   </div>
-  <script>
     const editor=document.getElementById('editor');
     const status=document.getElementById('status');
     const storageKey='record-summary';
@@ -38,7 +38,6 @@
     
   </script>
 </body>
-  <script>
   const editor = document.getElementById('editor');
   const status = document.getElementById('status');
 
@@ -85,6 +84,7 @@
 </script>
 
 </html>
+
 
 
 

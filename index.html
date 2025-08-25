@@ -563,10 +563,11 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 <!-- 星空动画（你的自定义） -->
 <script>
-  // 星空动画代码
+  // 星空动画代码（闪烁 + 流星）
   const canvas = document.getElementById('starfield');
   const ctx = canvas.getContext('2d');
   let stars = [];
+  let meteors = [];
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -582,13 +583,30 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
       y: Math.random() * canvas.height,
       radius: Math.random() * 1.5,
       speed: Math.random() * 0.3 + 0.05,
-      alpha: Math.random(),      // 透明度
-      alphaChange: Math.random() * 0.02 + 0.005 // 闪烁速度
+      alpha: Math.random(),
+      alphaChange: Math.random() * 0.02 + 0.005
+    });
+  }
+
+  // 创建流星
+  function createMeteor() {
+    const startX = Math.random() * canvas.width;
+    const startY = Math.random() * canvas.height * 0.5; // 上半部分出现
+    const length = Math.random() * 80 + 50;
+    const speed = Math.random() * 6 + 4;
+    meteors.push({
+      x: startX,
+      y: startY,
+      length: length,
+      speed: speed,
+      opacity: 1
     });
   }
 
   function drawStars() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 绘制星星
     stars.forEach(star => {
       ctx.beginPath();
       ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
@@ -606,13 +624,40 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
         star.x = Math.random() * canvas.width;
       }
     });
+
+    // 绘制流星
+    meteors.forEach((meteor, index) => {
+      const gradient = ctx.createLinearGradient(
+        meteor.x, meteor.y,
+        meteor.x + meteor.length, meteor.y + meteor.length
+      );
+      gradient.addColorStop(0, `rgba(255,255,255,${meteor.opacity})`);
+      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.strokeStyle = gradient;
+      ctx.beginPath();
+      ctx.moveTo(meteor.x, meteor.y);
+      ctx.lineTo(meteor.x + meteor.length, meteor.y + meteor.length);
+      ctx.stroke();
+
+      // 移动流星
+      meteor.x += meteor.speed;
+      meteor.y += meteor.speed;
+      meteor.opacity -= 0.02;
+
+      // 流星消失
+      if (meteor.opacity <= 0) meteors.splice(index, 1);
+    });
+
     requestAnimationFrame(drawStars);
   }
+
+  // 定时随机产生流星
+  setInterval(() => {
+    if (Math.random() < 0.4) createMeteor(); // 40% 概率出现
+  }, 2000);
+
   drawStars();
 </script>
-
-</body>
-</html>
 
 </body>
 </html>

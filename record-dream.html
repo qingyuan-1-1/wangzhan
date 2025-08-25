@@ -5,6 +5,33 @@
   <title>记录｜Dream 模块</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap">
   <style>
+    .nav-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 10px;
+}
+.nav-btn {
+  padding: 12px 24px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0,255,224,0.6);
+}
+.nav-btn.left {
+  background: linear-gradient(90deg, #00ffe0, #0077ff);
+  color: #000;
+}
+.nav-btn.right {
+  background: linear-gradient(90deg, #0077ff, #00ffe0);
+  color: #000;
+}
+.nav-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0,255,224,0.9);
+}
+
     body {
       margin: 0;
       padding: 40px;
@@ -126,6 +153,12 @@
         status.textContent = "❌ 提交失败，请稍后重试";
       });
     }
+    <div class="nav-actions">
+  <a href="record-summary.html" class="nav-btn left">← 返回 Summary 模块</a>
+  <a href="record-prompt.html" class="nav-btn right">→ 前往 Prompt 模块</a>
+</div>
+
   </script>
 </body>
 </html>
+

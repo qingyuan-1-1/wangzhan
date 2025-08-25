@@ -5,87 +5,127 @@
   <title>记录｜Dream 模块</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap">
   <style>
-    body {margin:0;padding:40px;background:radial-gradient(circle at top left,#0f0f0f,#000);font-family:'Orbitron',sans-serif;color:#00ffe0;}
-    h1 {font-size:28px;margin-bottom:10px;text-shadow:0 0 8px #00ffe0;}
-    p {font-size:16px;color:#aaa;margin-bottom:20px;}
-    .editor {width:100%;height:300px;padding:12px;font-size:16px;background:#111;color:#00ffe0;border:2px solid #00ffe0;border-radius:10px;resize:vertical;box-shadow:0 0 12px #00ffe0 inset;transition:box-shadow .3s;}
-    .editor:focus {box-shadow:0 0 20px #00ffe0 inset;outline:none;}
-    .status {margin-top:10px;font-size:14px;color:#888;}
-    .actions {margin-top:30px;}
-    .btn {padding:12px 24px;background:linear-gradient(90deg,#00ffe0,#0077ff);color:#000;font-weight:bold;border:none;border-radius:8px;text-decoration:none;box-shadow:0 0 10px #00ffe0;transition:transform .2s,box-shadow .3s;}
-    .btn:hover {transform:scale(1.05);box-shadow:0 0 20px #00ffe0;}
+    body {
+      margin: 0;
+      padding: 40px;
+      background: radial-gradient(circle at top right, #000428, #004e92);
+      font-family: 'Orbitron', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 8px #00c3ff;
+    }
+    p {
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    .editor {
+      width: 100%;
+      height: 300px;
+      padding: 12px;
+      font-size: 16px;
+      background: #0a0a0a;
+      color: #00c3ff;
+      border: 2px solid #00c3ff;
+      border-radius: 10px;
+      resize: vertical;
+      box-shadow: 0 0 12px #00c3ff inset;
+      transition: box-shadow 0.3s ease;
+    }
+    .editor:focus {
+      box-shadow: 0 0 20px #00c3ff inset;
+      outline: none;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #aaa;
+    }
+    .actions {
+      margin-top: 30px;
+    }
+    .btn {
+      padding: 12px 24px;
+      background: linear-gradient(90deg, #00c3ff, #0077ff);
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00c3ff;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px #00c3ff; }
+      50% { box-shadow: 0 0 20px #00c3ff; }
+      100% { box-shadow: 0 0 10px #00c3ff; }
+    }
+    .editor, .btn {
+      animation: pulse 3s infinite;
+    }
   </style>
 </head>
 <body>
-  <h1>💭 Dream 模块记录页</h1>
-  <p>记录你的创意脑洞和未来幻想。</p>
-  <textarea id="editor" class="editor" placeholder="支持 输入......"></textarea>
+  <h1>🌌 Dream 模块记录页</h1>
+  <p>在这里记录你的幻想、AI 创意、未来设想或提示词实验。</p>
+  <textarea id="editor" class="editor" placeholder="输入你的幻想、创意或提示词......"></textarea>
   <div id="status" class="status">尚未保存</div>
   <div class="actions">
-    <a href="index.html#Dream" class="btn">← 返回 Dream 模块</a>
+    <a href="index.html#dream" class="btn">← 返回 Dream 模块</a>
+    <button onclick="submitToCloud()" class="btn">☁️ 提交到云端</button>
   </div>
   <script>
-    const editor=document.getElementById('editor');
-    const status=document.getElementById('status');
-    const storageKey='record-dream';
-    const saved=localStorage.getItem(storageKey);
-    if(saved){editor.value=saved;status.textContent='✅ 已加载保存内容';}
-    editor.addEventListener('input',()=>{localStorage.setItem(storageKey,editor.value);status.textContent='✅ 已自动保存';});
- <div class="actions">
-  <a href="index.html#dream" class="btn">← 返回模块</a>
-  <button onclick="submitToCloud()" class="btn">☁️ 提交到云端</button>
-</div>
+    const editor = document.getElementById('editor');
+    const status = document.getElementById('status');
 
+    // 自动识别模块名
+    const moduleName = location.pathname.match(/record-(.+?)\.html/)?.[1] || 'dream';
+    const storageKey = `record-${moduleName}`;
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      editor.value = saved;
+      status.textContent = '✅ 已加载保存内容';
+    }
+
+    editor.addEventListener('input', () => {
+      localStorage.setItem(storageKey, editor.value);
+      status.textContent = '✅ 已自动保存';
+    });
+
+    function submitToCloud() {
+      const content = editor.value.trim();
+      if (!content) return alert("内容为空，无法提交");
+
+      const payload = {
+        module: moduleName,
+        content,
+        timestamp: new Date().toISOString()
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbzeEWMlctsOmwQJPbQeQSgA-e7ZYVGPkGKRFA5xKGGmWtbD9BveRvNn5DOgL7V08Cg/exec", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(res => res.text())
+      .then(msg => {
+        status.textContent = "✅ 已提交到云端：" + msg;
+        localStorage.removeItem(storageKey); // 可选：清除草稿
+      })
+      .catch(err => {
+        console.error(err);
+        status.textContent = "❌ 提交失败，请稍后重试";
+      });
+    }
   </script>
 </body>
-  <script>
-  const editor = document.getElementById('editor');
-  const status = document.getElementById('status');
-
-  // 自动识别模块名
-  const moduleName = location.pathname.match(/record-(.+?)\\.html/)?.[1] || 'unknown';
-  const storageKey = `record-${moduleName}`;
-  const saved = localStorage.getItem(storageKey);
-  if (saved) {
-    editor.value = saved;
-    status.textContent = '✅ 已加载保存内容';
-  }
-
-  editor.addEventListener('input', () => {
-    localStorage.setItem(storageKey, editor.value);
-    status.textContent = '✅ 已自动保存';
-  });
-
-  // 云端提交函数
-  function submitToCloud() {
-    const content = editor.value.trim();
-    if (!content) return alert("内容为空，无法提交");
-
-    const payload = {
-      module: moduleName,
-      content,
-      timestamp: new Date().toISOString()
-    };
-
-    fetch("https://script.google.com/macros/s/AKfycbzeEWMlctsOmwQJPbQeQSgA-e7ZYVGPkGKRFA5xKGGmWtbD9BveRvNn5DOgL7V08Cg/exec", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: { "Content-Type": "application/json" }
-    })
-    .then(res => res.text())
-    .then(msg => {
-      status.textContent = "✅ 已提交到云端：" + msg;
-      localStorage.removeItem(storageKey); // 可选：清除草稿
-    })
-    .catch(err => {
-      console.error(err);
-      status.textContent = "❌ 提交失败，请稍后重试";
-    });
-  }
-</script>
-
 </html>
-
-
-
-

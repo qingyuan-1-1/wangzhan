@@ -73,7 +73,40 @@
   <div class="actions">
     <a href="index.html#Summary" class="btn">← 返回 Summary 模块</a>
     <button onclick="submitToCloud()" class="btn">☁️ 提交到云端</button>
-  </div>
+    <div class="nav-actions">
+  <a href="../index.html#Summary" class="nav-btn left">← 返回 Summary 模块</a>
+  <a href="record-dream.html" class="nav-btn right">→ 前往 Dream 模块</a>
+</div>
+
+<style>
+.nav-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 10px;
+}
+.nav-btn {
+  padding: 12px 24px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0,255,224,0.6);
+}
+.nav-btn.left {
+  background: linear-gradient(90deg, #00ffe0, #0077ff);
+  color: #000;
+}
+.nav-btn.right {
+  background: linear-gradient(90deg, #0077ff, #00ffe0);
+  color: #000;
+}
+.nav-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0,255,224,0.9);
+}
+</style>
+
   <script>
     const editor = document.getElementById('editor');
     const status = document.getElementById('status');
@@ -120,3 +153,4 @@
   </script>
 </body>
 </html>
+

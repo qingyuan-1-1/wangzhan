@@ -38,6 +38,53 @@
 
   </script>
 </body>
+  <script>
+  const editor = document.getElementById('editor');
+  const status = document.getElementById('status');
+
+  // 自动识别模块名
+  const moduleName = location.pathname.match(/record-(.+?)\\.html/)?.[1] || 'unknown';
+  const storageKey = `record-${moduleName}`;
+  const saved = localStorage.getItem(storageKey);
+  if (saved) {
+    editor.value = saved;
+    status.textContent = '✅ 已加载保存内容';
+  }
+
+  editor.addEventListener('input', () => {
+    localStorage.setItem(storageKey, editor.value);
+    status.textContent = '✅ 已自动保存';
+  });
+
+  // 云端提交函数
+  function submitToCloud() {
+    const content = editor.value.trim();
+    if (!content) return alert("内容为空，无法提交");
+
+    const payload = {
+      module: moduleName,
+      content,
+      timestamp: new Date().toISOString()
+    };
+
+    fetch("你的 Web App URL", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.text())
+    .then(msg => {
+      status.textContent = "✅ 已提交到云端：" + msg;
+      localStorage.removeItem(storageKey); // 可选：清除草稿
+    })
+    .catch(err => {
+      console.error(err);
+      status.textContent = "❌ 提交失败，请稍后重试";
+    });
+  }
+</script>
+
 </html>
+
 
 

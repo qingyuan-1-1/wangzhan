@@ -87,19 +87,27 @@
       const content = editor.value.trim();
       if (!content) return alert("内容为空，无法提交");
       const payload = { module: moduleName, content, timestamp: new Date().toISOString() };
-      fetch("https://script.google.com/macros/s/AKfycbw8C7U_4TL3X3qNZoC7tGMT-UsboYb4ZI5_0BKd4OB0Xq2c4q-F_drF86bYrQpzfylI/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbw01g1Dfui1gtHV03sDdm8HwK7RtDgjHO8qPQ8c0mDOe1XsBF8pPRumfYyqk6fJJml3pg/exec", {
         method: "POST",
-        body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
       })
-      .then(res => res.text())
-      .then(msg => {
-        status.textContent = "✅ 已提交到云端：" + msg;
+      .then(async (res) => {
+        const text = await res.text();
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} ${res.statusText}: ${text}`);
+        }
+        let display = text;
+        try {
+          const data = JSON.parse(text);
+          display = data.message || data.msg || text;
+        } catch (_) {}
+        status.textContent = "✅ 已提交到云端：" + display;
         localStorage.removeItem(storageKey);
       })
       .catch(err => {
         console.error(err);
-        status.textContent = "❌ 提交失败，请稍后重试";
+        status.textContent = "❌ 提交失败：" + (err?.message || "请稍后重试");
       });
     }
   </script>
